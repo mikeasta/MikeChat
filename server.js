@@ -4,11 +4,15 @@ const app     = express();
 const http    = require("http").createServer(app);
 const io      = require("socket.io")(http);
 const formatMessage = require("./utils/messages");
-const {getUser, addUser, removeUser, roomUsers} = require("./utils/users");
+const {addUser, removeUser, roomUsers} = require("./utils/users");
 
 // Bot name
 const botName = "MikeChatBot";
 
+// Set static folder
+app.use( express.static( path.join(__dirname, "public") ) );
+
+// IO interface implemention
 io.on("connection", socket => {
 
     // Joining room
@@ -26,7 +30,6 @@ io.on("connection", socket => {
 
         //Welcome to all users except current
         socket.broadcast.to(user.room).emit("message", formatMessage(botName,  `${user.username} connected`));
-
         
         io.to(user.room).emit("roomUsers", roomUsers(room));
     });
@@ -43,9 +46,6 @@ io.on("connection", socket => {
         io.to(user.room).emit("message", formatMessage(botName, `${user.username} disconnected`));
     });
 })
-
-// Set static folder
-app.use( express.static( path.join(__dirname, "public") ) );
 
 // PORT initialyze
 const PORT = process.env.PORT || 5000;

@@ -1,17 +1,12 @@
 // Users data
+// @user structure: { id, username, room }
 const users = [];
 
 // @desc: Add user to user array
-// @user: { id, username, room }
 // @aim: add user when he joins
 function addUser( user ) {
     users.push(user);
     return user;
-}
-
-// @desc: Find user by id
-function getUser(id) {
-    return users.find(user => user.id === id)
 }
 
 // @desc: Delete user 
