@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/2d68a2d689.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>MikeChat</title>
+</head>
+<body>
+    <div id="auth_wrapper">
+        <header>
+            <h2>
+                <i class="fas fa-bolt"></i> MikeChat
+            </h2>
+        </header>
+        <form action="chat.html">
+            <label for="username">Name</label>
+            <input type="text" name="username" id="username" required>
+            <label for="room">Rooms</label>
+            <select name="room" id="room">
+                <option value="JavaScript">JavaScript</option>
+                <option value="C++">C++</option>
+                <option value="Python"> Python</option>
+                <option value="Golang">Golang</option>
+            </select>
+            <button>
+                Enter
+            </button>
+        </form>
+        <footer>
+            <i class="fab fa-github-square"></i> Git <a href="https://github.com/mikeasta" target="_blank"> here</a>
+        </footer>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/2d68a2d689.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>MikeChat</title>
+</head>
+<body>
+    <div id="chat_wrapper">
+        <header>
+            <h2>
+                <i class="fas fa-bolt"></i> MikeChat
+            </h2>
+            <div id="room_name">
+                JavaScript
+            </div>
+            <form action="index.html">
+                <button id="leave_room">
+                    Leave Room
+                </button>
+            </form>
+        </header>
+        <main>
+            <div class="users">
+                <p>Users</p>
+                <ul id="room_users">
+                </ul>
+            </div>
+            <div class="messages">
+                <h3>Messages</h3>
+                <ul id="room_messages">              
+                </ul>
+            </div>
+        </main>
+        <footer>
+            <form action="" id="messaging">
+                <input type="text" placeholder="Enter message" id="message_input">
+                <button>Send</button>
+            </form>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w==" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
