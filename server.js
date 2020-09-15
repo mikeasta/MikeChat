@@ -4,7 +4,7 @@ const app     = express();
 const http    = require("http").createServer(app);
 const io      = require("socket.io")(http);
 const formatMessage = require("./utils/messages");
-const {addUser, removeUser, roomUsers} = require("./utils/users");
+const {getCurrentUser, addUser, removeUser, roomUsers} = require("./utils/users");
 
 // Bot name
 const botName = "MikeChatBot";
@@ -34,15 +34,23 @@ io.on("connection", socket => {
         io.to(user.room).emit("roomUsers", roomUsers(room));
     });
 
-
-    socket.on( "chatMessage", ({username, text, room}) => {
-        io.to(room).emit( "message", formatMessage(username, text))
+    // Listen on message submit event
+    socket.on( "chatMessage", ({ text }) => {
+        const user = getCurrentUser(socket.id);
+        io.to(user.room).emit( "message", formatMessage(user.username, text))
     });
 
     // On disconnect
     socket.on( "disconnect", () => {
-        const user = removeUser(socket.id);
+        const user = getCurrentUser(socket.id);
+
+        // Remove user from state
+        removeUser(socket.id);
+
+        // Send leaved user username for updating array
         io.to(user.room).emit("leaveRoom", user.username);
+
+        // Send message about quiting
         io.to(user.room).emit("message", formatMessage(botName, `${user.username} disconnected`));
     });
 })

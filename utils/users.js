@@ -15,6 +15,11 @@ function removeUser(id) {
     return users.splice(index, 1)[0];
 }
 
+// @desc: Find user 
+function getCurrentUser(id) {
+    return users.find(user => user.id === id);    
+}
+
 // @desc: Getting room users
 function roomUsers(room) {
     return users.filter( user => user.room === room);
@@ -22,7 +27,7 @@ function roomUsers(room) {
 
 module.exports = {
     addUser,
-    getUser,
     removeUser,
-    roomUsers
+    roomUsers,
+    getCurrentUser
 }

@@ -8,7 +8,6 @@ const {username, room} = Qs.parse(location.search, {
 
 // Getting DOM
 const roomMessages = document.getElementById("room_messages");
-const messageForm = document.getElementById("messaging");
 
 // Joining room
 socket.emit("joinRoom", {username, room});
@@ -22,8 +21,10 @@ socket.on("message", ({ username, text, time }) => {
     roomMessages.appendChild(outputMessage({username, text, time}));
 })
 
-// Catching roomUsers event 
+// Users State
 let usersArray = [];
+
+// Getting all users array
 socket.on("roomUsers", (users) => {
     usersArray = users;
     usersNode(usersArray);
@@ -48,16 +49,15 @@ function usersNode(users) {
 }
 
 // Form message event
+const messageForm = document.getElementById("messaging");
 messageForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const input = document.getElementById("message_input");
-    socket.emit("chatMessage", {
-        username,
-        text: input.value,
-        room
-    });
+    socket.emit("chatMessage", { text: input.value } );
     input.value = "";
+    roomMessages.scrollTop = roomMessages.scrollHeight;
+    
 })
 
 // Generates message node (li)
