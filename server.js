@@ -17,12 +17,14 @@ io.on("connection", socket => {
 
     // Joining room
     socket.on("joinRoom", ({username, room}) => {
+        // Adding current user's object to user state
         const user = addUser( {
             id: socket.id,
             username,
             room
         });
 
+        // Joining to special chanel
         socket.join(user.room);
 
         // Welcome to current user
@@ -42,6 +44,7 @@ io.on("connection", socket => {
 
     // On disconnect
     socket.on( "disconnect", () => {
+        // Get current user data
         const user = getCurrentUser(socket.id);
 
         // Remove user from state
